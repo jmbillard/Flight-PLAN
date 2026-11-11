@@ -1,0 +1,16 @@
+[package]
+name = "linhas_conectoras"
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+build = "build.rs"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+after-effects = "0.4"
+lc-core = { path = "../lc-core" }
+
+[build-dependencies]
+pipl = "0.1"

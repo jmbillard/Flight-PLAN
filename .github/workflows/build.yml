@@ -1,0 +1,29 @@
+name: build-mac
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+jobs:
+  test-core:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: cargo test -p lc-core --release
+  build:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: mac-${{ hashFiles('**/Cargo.toml', '**/Cargo.lock') }}
+      - name: Build
+        run: bash build_mac.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: LinhasConectoras-mac
+          path: dist/LinhasConectoras-mac.zip
+          if-no-files-found: error

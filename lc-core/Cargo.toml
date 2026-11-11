@@ -1,0 +1,8 @@
+[package]
+name = "lc-core"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "Linhas Conectoras: geometria, sorteios e rasterizacao (sem dependencias do AE)"
+
+[dependencies]
