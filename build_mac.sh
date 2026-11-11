@@ -16,11 +16,9 @@ rm -rf "$OUT"
 mkdir -p "$B/Contents/MacOS" "$B/Contents/Resources"
 R="$TD/aarch64-apple-darwin/release"
 cp "$R/$BIN.rsrc"        "$B/Contents/Resources/$NAME.rsrc"
-cp "$R/${BIN}_PkgInfo"   "$B/Contents/PkgInfo"
-cp "$R/${BIN}_Info.plist" "$B/Contents/Info.plist"
+printf 'eFKTFXTC' > "$B/Contents/PkgInfo"
+cp mac/Info.plist "$B/Contents/Info.plist"
 lipo "$TD"/{x86_64,aarch64}-apple-darwin/release/lib$BIN.dylib -create -output "$B/Contents/MacOS/$NAME"
-/usr/libexec/PlistBuddy -c "Set :CFBundleIdentifier com.jmbillard.$NAME" "$B/Contents/Info.plist"
-/usr/libexec/PlistBuddy -c "Set :CFBundleExecutable $NAME" "$B/Contents/Info.plist" || true
 # AE 25.2+ exige assinatura: ad-hoc serve para uso proprio
 codesign --force --options runtime --timestamp=none --sign - "$B"
 codesign -dv "$B" 2>&1 | head -5
